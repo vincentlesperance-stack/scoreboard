@@ -1,0 +1,23 @@
+{
+  "updated": "2026-11-20T18:10:00-05:00",
+  "through": "2026-11-19",
+  "tradeDate": "2026-09-30",
+  "sides": [
+    {
+      "key": "hudon3",
+      "team": "Monadnocks",
+      "owner": "Hudon",
+      "players": [
+        {"name": "Seth Jarvis", "nhl": "CAR", "pos": "LW,RW", "gp": 11, "g": 2, "a": 7, "ppp": 0, "sog": 19, "hit": 14, "blk": 6, "note": ""}
+      ]
+    },
+    {
+      "key": "boobs",
+      "team": "Lou Skunt",
+      "owner": "Boobs",
+      "players": [
+        {"name": "Matthew Knies", "nhl": "CBJ", "pos": "LW,RW", "gp": 20, "g": 5, "a": 7, "ppp": 4, "sog": 35, "hit": 38, "blk": 2, "note": "Since dropped, now a free agent"}
+      ]
+    }
+  ]
+}
