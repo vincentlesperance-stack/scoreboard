@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Did Amine Get Fucked?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0d12; --panel:#141821; --line:#252b38; --ink:#f3f5f9; --mute:#8a93a6;
+    --gab:#2f7cf6; --amine:#f2b01e; --ponpon:#9b5cf6; --gaby:#ef4f8a; --win:#2bd47d; --lose:#ff3b3b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;min-height:100%}
+  body{padding:clamp(12px,2vw,32px);display:flex;flex-direction:column;gap:clamp(28px,3.5vw,60px);min-height:100vh}
+  .trade{display:flex;flex-direction:column;gap:clamp(12px,1.6vw,24px)}
+  .trade + .trade{border-top:2px dashed var(--line);padding-top:clamp(28px,3.5vw,60px)}
+
+  .banner{border-radius:14px;text-align:center;padding:clamp(14px,2.2vw,34px) 12px;font-family:Anton,Impact,sans-serif;
+    font-size:clamp(42px,8.5vw,150px);line-height:.95;letter-spacing:.02em;text-transform:uppercase;position:relative;overflow:hidden}
+  .banner.red{background:repeating-linear-gradient(-45deg,#c81414 0 40px,#a50d0d 40px 80px);animation:pulse 1.6s ease-in-out infinite}
+  .banner.blue{background:repeating-linear-gradient(-45deg,#1859d6 0 40px,#0f43a8 40px 80px);animation:pulse 1.6s ease-in-out infinite}
+  .banner.gold{background:repeating-linear-gradient(-45deg,#c99a06 0 40px,#a87f00 40px 80px);color:#140f00;animation:pulse 1.6s ease-in-out infinite}
+  .banner.pink{background:repeating-linear-gradient(-45deg,#d6246b 0 40px,#b0154f 40px 80px);animation:pulse 1.6s ease-in-out infinite}
+  .banner.even{background:#2a2f3b;color:#cfd5e2}
+  .banner small{display:block;font-family:Inter,sans-serif;font-weight:600;font-size:clamp(13px,1.3vw,22px);letter-spacing:.08em;margin-top:.6em;opacity:.9}
+  @keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
+
+  header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px}
+  header h1{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(22px,2.4vw,40px);letter-spacing:.03em}
+  header .meta{color:var(--mute);font-size:clamp(12px,1vw,16px);text-align:right}
+
+  .sides{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,24px)}
+  @media (max-width:900px){.sides{grid-template-columns:1fr}}
+  .side{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+  .side .top{padding:clamp(12px,1.4vw,22px);display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid}
+  .side.gab .top{border-color:var(--gab)} .side.amine .top{border-color:var(--amine)}
+  .side.ponpon .top{border-color:var(--ponpon)} .side.gaby .top{border-color:var(--gaby)}
+  .side .team{font-family:Anton,sans-serif;font-size:clamp(26px,3vw,52px);letter-spacing:.02em}
+  .side .owner{color:var(--mute);font-weight:600;font-size:clamp(13px,1.1vw,18px);text-transform:uppercase;letter-spacing:.1em}
+  .side .cats{text-align:right}
+  .side .cats b{font-family:Anton,sans-serif;font-size:clamp(36px,4.4vw,76px);line-height:1}
+  .side .cats span{display:block;color:var(--mute);font-size:clamp(11px,.9vw,14px);text-transform:uppercase;letter-spacing:.1em}
+
+  table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+  th,td{padding:clamp(8px,1vw,16px) clamp(6px,.8vw,12px);text-align:center;border-bottom:1px solid var(--line)}
+  th{color:var(--mute);font-size:clamp(11px,.9vw,15px);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+  td{font-family:'JetBrains Mono',monospace;font-size:clamp(18px,2vw,36px);font-weight:500}
+  td.name,th.name{text-align:left}
+  td.name{font-family:Inter,sans-serif;font-weight:800;font-size:clamp(15px,1.5vw,26px)}
+  td.name .sub{display:block;font-weight:400;color:var(--mute);font-size:clamp(11px,.85vw,14px);margin-top:2px}
+  td.name .note{display:inline-block;margin-top:4px;font-size:clamp(10px,.8vw,13px);font-weight:600;color:#ffb4b4;background:#3a1414;border-radius:4px;padding:1px 6px}
+  tr.total td{font-weight:700;border-bottom:none;background:#0f1219}
+  tr.total td.name{font-family:Anton,sans-serif;font-weight:400;letter-spacing:.06em}
+  td.w{color:var(--win)} td.l{color:var(--lose)}
+  .zero{color:#4c5466}
+
+  .foot{color:var(--mute);font-size:clamp(11px,.9vw,14px)}
+  footer{color:var(--mute);font-size:clamp(11px,.9vw,14px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .err{color:var(--lose);padding:40px;text-align:center;font-size:20px}
+</style>
+</head>
+<body>
+
+<section class="trade" id="t2">
+  <div class="banner even">Loading…</div>
+  <header><h1>GOAT POOL · Trade · Crosby + Slafkovský ⇄ Barkov + Zibanejad</h1><div class="meta"></div></header>
+  <div class="sides"></div>
+  <div class="foot">Stats since the trade on Nov 16 (games that day included).</div>
+</section>
+
+<section class="trade" id="t1">
+  <div class="banner even">Loading…</div>
+  <header><h1>GOAT POOL · Trade · Kadri ⇄ Gostisbehere</h1><div class="meta"></div></header>
+  <div class="sides"></div>
+  <div class="foot">Stats since the trade on Nov 5 (games that day included).</div>
+</section>
+
+<footer>
+  <span>Categories: G · A · PPP · SOG · HIT · BLK. Winner = most categories won.</span>
+  <span>Source: Yahoo Sports game logs</span>
+</footer>
+
+<script>
+const CATS=[["g","G"],["a","A"],["ppp","PPP"],["sog","SOG"],["hit","HIT"],["blk","BLK"]];
+const fmtDate=s=>{const d=new Date(s.length===10?s+"T12:00:00":s);return d.toLocaleDateString("en-CA",{month:"short",day:"numeric"});};
+
+/* Banner shown when that side wins MORE categories */
+const TRADES=[
+  {el:"t2", file:"data.json",
+   owners:{gab:"Hudon",amine:"Amine"},
+   winA:{text:"AMINE GOT FUCKED",cls:"red"},   // side A (Crosby + Slafkovský) ahead
+   winB:{text:"HUDON GOT FLEECED",cls:"blue"}}, // side B (Barkov + Zibanejad) ahead
+  {el:"t1", file:"data1.json",
+   owners:{},
+   winA:{text:"PONPON IS KING",cls:"gold"},     // side A (Kadri) ahead
+   winB:{text:"GABY GUARANTEE",cls:"pink"}}     // side B (Gostisbehere) ahead
+];
+
+function render(cfg,data){
+  const root=document.getElementById(cfg.el);
+  const sides=data.sides.map(s=>{
+    const tot={gp:0};CATS.forEach(([k])=>tot[k]=0);
+    s.players.forEach(p=>{tot.gp+=p.gp;CATS.forEach(([k])=>tot[k]+=p[k]);});
+    return {...s,tot};
+  });
+  const [A,B]=sides;
+  const res={}; let aw=0,bw=0;
+  CATS.forEach(([k])=>{ if(A.tot[k]>B.tot[k]){aw++;res[k]="A";} else if(B.tot[k]>A.tot[k]){bw++;res[k]="B";} else res[k]="T"; });
+  A.wins=aw; B.wins=bw;
+
+  const ban=root.querySelector(".banner");
+  const score=`${A.team} ${aw} · ${bw} ${B.team} (${6-aw-bw} tied)`;
+  const pick=aw>bw?cfg.winA:bw>aw?cfg.winB:{text:"DEAD EVEN",cls:"even"};
+  ban.className="banner "+pick.cls; ban.innerHTML=`${pick.text}<small>${score}</small>`;
+
+  root.querySelector(".meta").innerHTML=`Through games of ${fmtDate(data.through)}<br>Updated ${new Date(data.updated).toLocaleString("en-CA",{dateStyle:"medium",timeStyle:"short"})}`;
+
+  const cell=v=>`<td class="${v===0?"zero":""}">${v}</td>`;
+  root.querySelector(".sides").innerHTML=sides.map((s,i)=>{
+    const me=i===0?"A":"B";
+    const rows=s.players.map(p=>`<tr>
+      <td class="name">${p.name}<span class="sub">${p.nhl} · ${p.pos}</span>${p.note?`<span class="note">${p.note}</span>`:""}</td>
+      ${cell(p.gp)}${CATS.map(([k])=>cell(p[k])).join("")}</tr>`).join("");
+    const totRow=`<tr class="total"><td class="name">TOTAL</td>${cell(s.tot.gp)}${CATS.map(([k])=>{
+      const r=res[k];const c=r==="T"?"":(r===me?"w":"l");return `<td class="${c}">${s.tot[k]}</td>`;}).join("")}</tr>`;
+    const owner=cfg.owners[s.key]||s.team;
+    return `<div class="side ${s.key}">
+      <div class="top"><div><div class="team">${s.team}</div><div class="owner">${owner} receives</div></div>
+      <div class="cats"><b>${s.wins}</b><span>cats won</span></div></div>
+      <table><thead><tr><th class="name">Player</th><th>GP</th>${CATS.map(([,l])=>`<th>${l}</th>`).join("")}</tr></thead>
+      <tbody>${rows}${totRow}</tbody></table></div>`;
+  }).join("");
+}
+
+TRADES.forEach(cfg=>{
+  fetch(cfg.file+"?ts="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json();})
+    .then(d=>render(cfg,d))
+    .catch(e=>{const root=document.getElementById(cfg.el);
+      root.querySelector(".sides").innerHTML=`<div class="err">Couldn't load the stats file (${e.message}).</div>`;
+      root.querySelector(".banner").textContent="NO DATA";});
+});
+</script>
+</body>
+</html>
