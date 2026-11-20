@@ -24,8 +24,6 @@
   .banner.blue{background:repeating-linear-gradient(-45deg,#1859d6 0 40px,#0f43a8 40px 80px);animation:pulse 1.6s ease-in-out infinite}
   .banner.gold{background:repeating-linear-gradient(-45deg,#c99a06 0 40px,#a87f00 40px 80px);color:#140f00;animation:pulse 1.6s ease-in-out infinite}
   .banner.pink{background:repeating-linear-gradient(-45deg,#d6246b 0 40px,#b0154f 40px 80px);animation:pulse 1.6s ease-in-out infinite}
-  .banner.teal{background:repeating-linear-gradient(-45deg,#0f9a9a 0 40px,#0a7a7a 40px 80px);animation:pulse 1.6s ease-in-out infinite}
-  .banner.orange{background:repeating-linear-gradient(-45deg,#e8650f 0 40px,#c24f06 40px 80px);animation:pulse 1.6s ease-in-out infinite}
   .banner.even{background:#2a2f3b;color:#cfd5e2}
   .banner small{display:block;font-family:Inter,sans-serif;font-weight:600;font-size:clamp(13px,1.3vw,22px);letter-spacing:.08em;margin-top:.6em;opacity:.9}
   @keyframes pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
@@ -40,7 +38,6 @@
   .side .top{padding:clamp(12px,1.4vw,22px);display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid}
   .side.gab .top{border-color:var(--gab)} .side.amine .top{border-color:var(--amine)}
   .side.ponpon .top{border-color:var(--ponpon)} .side.gaby .top{border-color:var(--gaby)}
-  .side.hudon3 .top{border-color:#22c3c3} .side.boobs .top{border-color:#ff7a1a}
   .side .team{font-family:Anton,sans-serif;font-size:clamp(26px,3vw,52px);letter-spacing:.02em}
   .side .owner{color:var(--mute);font-weight:600;font-size:clamp(13px,1.1vw,18px);text-transform:uppercase;letter-spacing:.1em}
   .side .cats{text-align:right}
@@ -81,13 +78,6 @@
   <div class="foot">Stats since the trade on Nov 5 (games that day included).</div>
 </section>
 
-<section class="trade" id="t3">
-  <div class="banner even">Loading…</div>
-  <header><h1>GOAT POOL · Trade · Jarvis ⇄ Knies</h1><div class="meta"></div></header>
-  <div class="sides"></div>
-  <div class="foot">Stats since the trade on Sep 30 (games that day included).</div>
-</section>
-
 <footer>
   <span>Categories: G · A · PPP · SOG · HIT · BLK. Winner = most categories won.</span>
   <span>Source: Yahoo Sports game logs</span>
@@ -106,11 +96,7 @@ const TRADES=[
   {el:"t1", file:"data1.json",
    owners:{ponpon:"Ponpon",gaby:"Gaby"},
    winA:{text:"PONPON IS KING",cls:"gold"},     // side A (Kadri) ahead
-   winB:{text:"GABY GUARANTEE",cls:"pink"}},    // side B (Gostisbehere) ahead
-  {el:"t3", file:"data3.json",
-   owners:{hudon3:"Hudon",boobs:"Boobs"},
-   winA:{text:"SORRY BOOBS",cls:"teal"},        // side A (Jarvis, Monadnocks) ahead
-   winB:{text:"MONADCUCKED",cls:"orange"}}      // side B (Knies, Lou Skunt) ahead
+   winB:{text:"GABY GUARANTEE",cls:"pink"}}     // side B (Gostisbehere) ahead
 ];
 
 function render(cfg,data){
