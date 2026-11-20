@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-19T13:15:00-05:00",
-  "through": "2026-11-18",
+  "updated": "2026-11-20T18:05:00-05:00",
+  "through": "2026-11-19",
   "tradeDate": "2026-11-05",
   "sides": [
     {
@@ -8,7 +8,19 @@
       "team": "Cerebroni",
       "owner": "Ponpon",
       "players": [
-        {"name": "Nazem Kadri", "nhl": "COL", "pos": "C,LW,RW", "gp": 6, "g": 0, "a": 3, "ppp": 2, "sog": 22, "hit": 3, "blk": 0, "note": ""}
+        {
+          "name": "Nazem Kadri",
+          "nhl": "COL",
+          "pos": "C,LW,RW",
+          "gp": 7,
+          "g": 0,
+          "a": 4,
+          "ppp": 2,
+          "sog": 23,
+          "hit": 3,
+          "blk": 0,
+          "note": ""
+        }
       ]
     },
     {
@@ -16,7 +28,19 @@
       "team": "Has been",
       "owner": "Gaby",
       "players": [
-        {"name": "Shayne Gostisbehere", "nhl": "CAR", "pos": "D", "gp": 4, "g": 1, "a": 3, "ppp": 2, "sog": 9, "hit": 0, "blk": 2, "note": "No games since Nov 14"}
+        {
+          "name": "Shayne Gostisbehere",
+          "nhl": "CAR",
+          "pos": "D",
+          "gp": 5,
+          "g": 1,
+          "a": 3,
+          "ppp": 2,
+          "sog": 11,
+          "hit": 1,
+          "blk": 2,
+          "note": ""
+        }
       ]
     }
   ]

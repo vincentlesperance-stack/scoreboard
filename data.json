@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-19T12:45:00-05:00",
-  "through": "2026-11-18",
+  "updated": "2026-11-20T18:05:00-05:00",
+  "through": "2026-11-19",
   "tradeDate": "2026-11-16",
   "sides": [
     {
@@ -8,8 +8,32 @@
       "team": "Monadnocks",
       "owner": "Hudon",
       "players": [
-        {"name": "Sidney Crosby", "nhl": "PIT", "pos": "C", "gp": 0, "g": 0, "a": 0, "ppp": 0, "sog": 0, "hit": 0, "blk": 0, "note": "No games since Nov 14"},
-        {"name": "Juraj Slafkovský", "nhl": "MTL", "pos": "LW,RW", "gp": 2, "g": 0, "a": 1, "ppp": 1, "sog": 3, "hit": 1, "blk": 2, "note": ""}
+        {
+          "name": "Sidney Crosby",
+          "nhl": "PIT",
+          "pos": "C",
+          "gp": 1,
+          "g": 0,
+          "a": 1,
+          "ppp": 0,
+          "sog": 2,
+          "hit": 0,
+          "blk": 0,
+          "note": ""
+        },
+        {
+          "name": "Juraj Slafkovský",
+          "nhl": "MTL",
+          "pos": "LW,RW",
+          "gp": 3,
+          "g": 0,
+          "a": 1,
+          "ppp": 1,
+          "sog": 6,
+          "hit": 1,
+          "blk": 8,
+          "note": ""
+        }
       ]
     },
     {
@@ -17,8 +41,32 @@
       "team": "ZibanHijab",
       "owner": "Amine",
       "players": [
-        {"name": "Aleksander Barkov", "nhl": "FLA", "pos": "C", "gp": 0, "g": 0, "a": 0, "ppp": 0, "sog": 0, "hit": 0, "blk": 0, "note": "IR-LT, last played Oct 1"},
-        {"name": "Mika Zibanejad", "nhl": "NYR", "pos": "C,RW", "gp": 1, "g": 0, "a": 0, "ppp": 0, "sog": 2, "hit": 0, "blk": 0, "note": ""}
+        {
+          "name": "Aleksander Barkov",
+          "nhl": "FLA",
+          "pos": "C",
+          "gp": 0,
+          "g": 0,
+          "a": 0,
+          "ppp": 0,
+          "sog": 0,
+          "hit": 0,
+          "blk": 0,
+          "note": "IR-LT, last played Oct 1"
+        },
+        {
+          "name": "Mika Zibanejad",
+          "nhl": "NYR",
+          "pos": "C,RW",
+          "gp": 1,
+          "g": 0,
+          "a": 0,
+          "ppp": 0,
+          "sog": 2,
+          "hit": 0,
+          "blk": 0,
+          "note": ""
+        }
       ]
     }
   ]
