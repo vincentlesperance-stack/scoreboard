@@ -13,12 +13,23 @@ for m in raw:
     weeks[m['w']][nb]=dict(stats=vb,opp=na)
 def res(x,y): return 1.0 if x>y else (0.5 if x==y else 0.0)
 # Teams under the 3-goalie-start weekly minimum forfeit W and SV% (Yahoo rule); confirmed by Yahoo's scoring
-FORFEIT={(5,'ZibanHijab')}
+FORFEIT=set()
 def cres(w,t,u,c):
     if c in ('W','SV%'):
         ft,fu=(w,t) in FORFEIT,(w,u) in FORFEIT
         if ft or fu: return 0.5 if (ft and fu) else (0.0 if ft else 1.0)
     return res(weeks[w][t]['stats'][c],weeks[w][u]['stats'][c])
+def count(w,t,u):
+    return sum(1 for c in CATS if cres(w,t,u,c)==1)
+for w,wk in weeks.items():
+    for t,info in wk.items():
+        u=info['opp']
+        if count(w,t,u)!=wk[t]['stats']['_yahoo_wins'] or count(w,u,t)!=wk[u]['stats']['_yahoo_wins']:
+            for cand in ([(w,t)],[(w,u)],[(w,t),(w,u)]):
+                FORFEIT.update(cand)
+                if count(w,t,u)==wk[t]['stats']['_yahoo_wins'] and count(w,u,t)==wk[u]['stats']['_yahoo_wins']: break
+                FORFEIT.difference_update(cand)
+print('goalie forfeits detected:',sorted(FORFEIT))
 teams=sorted(MGR)
 T={t:dict(actual={c:0.0 for c in CATS},expected={c:0.0 for c in CATS},totals={c:0 for c in CATS},wins=0,losses=0,ties=0,matchW=0,matchL=0,matchT=0,expMatch=0.0,weekly=[]) for t in teams}
 check=[]
@@ -29,7 +40,7 @@ for w,wk in sorted(weeks.items()):
         cw=cl=0
         for c in CATS:
             r=cres(w,t,info['opp'],c); T[t]['actual'][c]+=r
-            e=sum(cres(w,t,u,c) for u in wk if u!=t)/9
+            e=sum(cres(w,t,u,c) for u in wk if u!=t)/(len(wk)-1)
             T[t]['expected'][c]+=e; wk_act+=r; wk_exp+=e
             if c!='SV%': T[t]['totals'][c]+=s[c]
             if r==1: T[t]['wins']+=1; cw+=1
@@ -43,9 +54,9 @@ for w,wk in sorted(weeks.items()):
         # all-play matchup: share of other teams you'd beat head-to-head on category count
         def cats_vs(u):
             x=sum(cres(w,t,u,c) for c in CATS); return res(x,8-x)
-        T[t]['expMatch']+=sum(cats_vs(u) for u in wk if u!=t)/9
+        T[t]['expMatch']+=sum(cats_vs(u) for u in wk if u!=t)/(len(wk)-1)
         T[t]['weekly'].append(dict(week=w,opp=info['opp'],oppMgr=MGR[info['opp']],actual=wk_act,expected=round(wk_exp,3),luck=round(wk_act-wk_exp,3),
-            cats={c:dict(v=s[c],ov=o[c],r=cres(w,t,info['opp'],c),e=round(sum(cres(w,t,u,c) for u in wk if u!=t)/9,3)) for c in CATS}))
+            cats={c:dict(v=s[c],ov=o[c],r=cres(w,t,info['opp'],c),e=round(sum(cres(w,t,u,c) for u in wk if u!=t)/(len(wk)-1),3)) for c in CATS}))
 bad=[c for c in check if c[2]!=c[3]]
 print('mismatches vs Yahoo:',bad)
 out=[]
@@ -56,4 +67,6 @@ for t in teams:
       totals={**d['totals'],'SV%':round(d['sv']/d['sa'],3)},matchRecord=f"{d['matchW']}-{d['matchL']}-{d['matchT']}",expMatch=round(d['expMatch'],3),weekly=d['weekly']))
 out.sort(key=lambda x:-x['luck'])
 for o in out: print(f"{o['manager']:8} {o['team']:16} {o['record']:8} act {o['actual']:5} exp {o['expected']:6} luck {o['luck']:+.2f} | "+' '.join(f"{c}:{v:+.1f}" for c,v in o['catLuck'].items()))
-json.dump(dict(updated='2026-11-21',weeks=7,through="Week 7",teams=out),open('luck.json','w'),indent=1)
+import datetime
+NW=max(weeks)
+json.dump(dict(updated=datetime.date.today().isoformat(),weeks=NW,through=f"Week {NW}",teams=out),open('luck.json','w'),indent=1)
