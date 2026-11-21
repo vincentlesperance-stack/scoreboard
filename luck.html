@@ -45,7 +45,7 @@
   .scroll{overflow-x:auto}
 
   /* diverging bar */
-  td.barcell{width:38%;min-width:220px;padding-left:16px}
+  td.barcell{width:30%;min-width:200px;padding-left:16px;padding-right:24px}
   .dbar{position:relative;height:22px}
   .dbar .axis{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:#4a5263}
   .dbar .b{position:absolute;top:3px;height:16px;border-radius:0 4px 4px 0}
@@ -170,14 +170,13 @@ fetch("luck.json?ts="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(D=>{
   const byActual=[...T].sort((a,b)=>b.actual-a.actual).map(t=>t.team);
   const byExp=[...T].sort((a,b)=>b.expected-a.expected).map(t=>t.team);
   const tot=N*8;
-  document.getElementById("board").innerHTML=`<thead><tr><th class="l"></th><th class="l">Manager</th><th>Record</th><th>Actual rank</th><th>Deserved record</th><th>Deserved rank</th><th>Matchups W-L-T</th><th>Deserved matchup W</th><th class="l" style="padding-left:16px">Luck (category wins)</th></tr></thead><tbody>`+
+  document.getElementById("board").innerHTML=`<thead><tr><th class="l"></th><th class="l">Manager</th><th class="l" style="padding-left:16px">Luck (category wins)</th><th>Record</th><th>Actual rank</th><th>Deserved record</th><th>Deserved rank</th><th>Matchups W-L-T</th><th>Deserved matchup W</th></tr></thead><tbody>`+
    sorted.map((t,i)=>{
      const ew=t.expected, el=tot-ew;
-     return `<tr class="${t.team===ME?"me":""}"><td class="rank l">${i+1}</td><td class="who l">${t.manager}<span>${t.team}</span></td>
+     return `<tr class="${t.team===ME?"me":""}"><td class="rank l">${i+1}</td><td class="who l">${t.manager}<span>${t.team}</span></td><td class="barcell">${dbar(t.luck,max)}</td>
       <td>${t.record}</td><td>${byActual.indexOf(t.team)+1}</td>
       <td>${ew.toFixed(1)}-${el.toFixed(1)}</td><td>${byExp.indexOf(t.team)+1}</td>
-      <td>${t.matchRecord}</td><td>${t.expMatch.toFixed(1)}</td>
-      <td class="barcell">${dbar(t.luck,max)}</td></tr>`;}).join("")+"</tbody>";
+      <td>${t.matchRecord}</td><td>${t.expMatch.toFixed(1)}</td></tr>`;}).join("")+"</tbody>";
 
   // category explorer
   const tabs=document.getElementById("tabs");
@@ -187,9 +186,9 @@ fetch("luck.json?ts="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(D=>{
     const rows=T.map(t=>({t,tot:t.totals[c],act:t.catActual[c]/N,exp:t.catExpected[c]/N,luck:t.catLuck[c]})).sort((a,b)=>b.luck-a.luck);
     const m=Math.max(...rows.map(r=>Math.abs(r.luck)),1)*1.15;
     const totRank=[...rows].sort((a,b)=>b.tot-a.tot).map(r=>r.t.team);
-    document.getElementById("cat").innerHTML=`<thead><tr><th class="l">Manager</th><th>${c==="SV%"?"Season SV%":"Season total"}</th><th>Total rank</th><th>Won</th><th>Win rate</th><th>Should have won</th><th class="l" style="padding-left:16px">Luck (${CATNAME[c].toLowerCase()} wins)</th></tr></thead><tbody>`+
-      rows.map(r=>`<tr class="${r.t.team===ME?"me":""}"><td class="who l">${r.t.manager}<span>${r.t.team}</span></td><td>${fmtTot(c,r.tot)}</td><td>${totRank.indexOf(r.t.team)+1}</td>
-        <td>${(r.act*N).toFixed(r.act*N%1?1:0)} of ${N}</td><td>${pct(r.act)}</td><td>${pct(r.exp)}</td><td class="barcell">${dbar(r.luck,m)}</td></tr>`).join("")+"</tbody>";
+    document.getElementById("cat").innerHTML=`<thead><tr><th class="l">Manager</th><th class="l" style="padding-left:16px">Luck (${CATNAME[c].toLowerCase()} wins)</th><th>${c==="SV%"?"Season SV%":"Season total"}</th><th>Total rank</th><th>Won</th><th>Win rate</th><th>Should have won</th></tr></thead><tbody>`+
+      rows.map(r=>`<tr class="${r.t.team===ME?"me":""}"><td class="who l">${r.t.manager}<span>${r.t.team}</span></td><td class="barcell">${dbar(r.luck,m)}</td><td>${fmtTot(c,r.tot)}</td><td>${totRank.indexOf(r.t.team)+1}</td>
+        <td>${(r.act*N).toFixed(r.act*N%1?1:0)} of ${N}</td><td>${pct(r.act)}</td><td>${pct(r.exp)}</td></tr>`).join("")+"</tbody>";
     // callout: biggest gap between total rank and win rate
     const lk=rows[0], ul=rows[rows.length-1];
     document.getElementById("callout").innerHTML=
