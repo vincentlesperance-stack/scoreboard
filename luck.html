@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GOAT POOL Luck Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0d12; --panel:#141821; --line:#252b38; --ink:#f3f5f9; --ink2:#c3c9d6; --mute:#8a93a6;
+    --lucky:#3987e5; --unlucky:#e66767; --mid:#383835;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif}
+  body{padding:clamp(12px,2vw,32px);display:flex;flex-direction:column;gap:clamp(20px,2.6vw,40px);max-width:1500px;margin:0 auto}
+  a{color:var(--ink2)}
+  h1{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(34px,4.4vw,72px);letter-spacing:.02em;line-height:1}
+  h2{font-family:Anton,sans-serif;font-weight:400;font-size:clamp(22px,2.2vw,36px);letter-spacing:.03em;margin-bottom:6px}
+  .sub{color:var(--mute);font-size:clamp(13px,1vw,16px);line-height:1.5}
+  .top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px}
+
+  .heroes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,1.6vw,24px)}
+  @media (max-width:800px){.heroes{grid-template-columns:1fr}}
+  .hero{border-radius:14px;padding:clamp(16px,2vw,30px);text-align:center}
+  .hero.l{background:repeating-linear-gradient(-45deg,#1d5fb3 0 40px,#184f97 40px 80px)}
+  .hero.u{background:repeating-linear-gradient(-45deg,#b33a3a 0 40px,#962f2f 40px 80px)}
+  .hero .k{font-weight:800;letter-spacing:.14em;text-transform:uppercase;font-size:clamp(12px,1vw,16px);opacity:.9}
+  .hero .n{font-family:Anton,sans-serif;font-size:clamp(44px,7vw,120px);line-height:1;margin:.12em 0}
+  .hero .d{font-size:clamp(13px,1.1vw,18px);opacity:.95}
+
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:clamp(14px,1.6vw,26px)}
+  table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+  th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+  th{color:var(--mute);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+  td{font-family:'JetBrains Mono',monospace;font-size:clamp(13px,1.15vw,18px);color:var(--ink2)}
+  th.l,td.l{text-align:left}
+  td.who{font-family:Inter,sans-serif;font-weight:800;color:var(--ink);font-size:clamp(14px,1.25vw,20px)}
+  td.who span{display:block;font-weight:400;color:var(--mute);font-size:12px}
+  td.rank{color:var(--mute);width:28px}
+  tr:last-child td{border-bottom:none}
+  tr.me td.who{color:#fff}
+  tr.me{background:#1a2030}
+  .scroll{overflow-x:auto}
+
+  /* diverging bar */
+  td.barcell{width:38%;min-width:220px;padding-left:16px}
+  .dbar{position:relative;height:22px}
+  .dbar .axis{position:absolute;left:50%;top:-4px;bottom:-4px;width:1px;background:#4a5263}
+  .dbar .b{position:absolute;top:3px;height:16px;border-radius:0 4px 4px 0}
+  .dbar .b.neg{border-radius:4px 0 0 4px}
+  .dbar .v{position:absolute;top:1px;font-size:13px;color:var(--ink)}
+  .num.pos{color:var(--ink)} .num.neg{color:var(--ink)}
+  .tag{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 14px}
+  .tabs button{background:#1d2230;color:var(--ink2);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font:600 13px Inter,sans-serif;cursor:pointer}
+  .tabs button.on{background:var(--ink);color:#0b0d12;border-color:var(--ink)}
+  .callout{margin-top:12px;color:var(--ink2);font-size:14px;line-height:1.5}
+
+  .grid{display:grid;grid-template-columns:150px repeat(7,1fr);gap:3px;min-width:640px}
+  .grid .h{color:var(--mute);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;text-align:center;padding:6px 0}
+  .grid .rn{font-weight:800;font-size:14px;display:flex;align-items:center}
+  .grid .c{height:42px;border-radius:4px;display:flex;align-items:center;justify-content:center;font:500 13px 'JetBrains Mono',monospace;color:var(--ink);cursor:default}
+  .legend{display:flex;gap:16px;align-items:center;color:var(--mute);font-size:13px;margin-top:12px;flex-wrap:wrap}
+  .ramp{display:flex;gap:2px}.ramp i{width:22px;height:12px;border-radius:2px;display:block}
+
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,24px)}
+  @media (max-width:900px){.how{grid-template-columns:1fr}}
+  .how div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;color:var(--ink2);font-size:14px;line-height:1.55}
+  .how b{color:var(--ink);display:block;font-size:15px;margin-bottom:6px}
+  code{font-family:'JetBrains Mono',monospace;font-size:13px;background:#0f1219;padding:2px 6px;border-radius:4px;color:var(--ink)}
+
+  #tip{position:fixed;pointer-events:none;background:#0f1219;border:1px solid #3a4152;border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.5;color:var(--ink2);max-width:320px;display:none;z-index:9;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  #tip b{color:var(--ink)}
+  footer{color:var(--mute);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-bottom:10px}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div>
+    <h1>GOAT POOL LUCK INDEX</h1>
+    <div class="sub" id="asof"></div>
+  </div>
+  <a href="index.html">← Trade scoreboard</a>
+</div>
+
+<div class="heroes" id="heroes"></div>
+
+<section class="panel">
+  <h2>Who's been lucky</h2>
+  <div class="sub">Luck = category wins you actually got − category wins you'd have averaged against all 9 teams each week. Positive means your opponents happened to be weak where you were weak.</div>
+  <div class="scroll" style="margin-top:12px"><table id="board"></table></div>
+</section>
+
+<section class="panel">
+  <h2>By category</h2>
+  <div class="sub">Pick a category. "Should have won" is how often your weekly total would beat a random team in the league.</div>
+  <div class="tabs" id="tabs"></div>
+  <div class="scroll"><table id="cat"></table></div>
+  <div class="callout" id="callout"></div>
+</section>
+
+<section class="panel">
+  <h2>Week by week</h2>
+  <div class="sub">Each cell = that week's luck (actual category wins − all-play expected). Hover for the matchup.</div>
+  <div class="scroll" style="margin-top:14px"><div class="grid" id="weeks"></div></div>
+  <div class="legend">
+    <span>Unlucky</span>
+    <span class="ramp" id="ramp"></span>
+    <span>Lucky</span>
+  </div>
+</section>
+
+<section>
+  <h2>How the luck formula works</h2>
+  <div class="how">
+    <div><b>1. All-play every week</b>Each week, every team's stat in a category is compared to all 9 other teams, not just its opponent. Beating 6 of 9 in goals means you "should" win goals 67% of the time that week (ties count half).</div>
+    <div><b>2. Expected vs actual</b>Add those percentages across 8 categories and every week to get <code>expected wins</code>. Compare with the category wins Yahoo actually gave you.</div>
+    <div><b>3. Luck</b><code>luck = actual − expected</code>. +3 means about 3 more category wins than your stats earned. Near 0 means your record is honest. Goalie-minimum forfeits are scored the way Yahoo scored them.</div>
+  </div>
+</section>
+
+<footer>
+  <span>Completed weeks only. Source: Yahoo Fantasy, GOAT POOL weekly matchups.</span>
+  <span id="upd"></span>
+</footer>
+
+<div id="tip"></div>
+
+<script>
+const ME="Cerebroni";
+const CATS=["G","A","PPP","SOG","HIT","BLK","W","SV%"];
+const CATNAME={G:"Goals",A:"Assists",PPP:"Powerplay points",SOG:"Shots",HIT:"Hits",BLK:"Blocks",W:"Wins","SV%":"Save %"};
+const LUCKY=[57,135,229], UNLUCKY=[230,103,103], MID=[56,56,53];
+const tip=document.getElementById("tip");
+function showTip(e,html){tip.innerHTML=html;tip.style.display="block";moveTip(e);}
+function moveTip(e){const x=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8),y=Math.min(e.clientY+14,innerHeight-tip.offsetHeight-8);tip.style.left=x+"px";tip.style.top=y+"px";}
+function hideTip(){tip.style.display="none";}
+function bindTip(el,html){el.addEventListener("mouseenter",e=>showTip(e,html));el.addEventListener("mousemove",moveTip);el.addEventListener("mouseleave",hideTip);}
+const sgn=v=>(v>0?"+":v<0?"−":"±")+Math.abs(v).toFixed(1);
+const pct=v=>Math.round(v*100)+"%";
+function mix(a,b,t){return `rgb(${a.map((x,i)=>Math.round(x+(b[i]-x)*t)).join(",")})`;}
+function divColor(v,max){const t=Math.min(1,Math.abs(v)/max);return v>=0?mix(MID,LUCKY,t):mix(MID,UNLUCKY,t);}
+function dbar(v,max){
+  const w=Math.min(50,Math.abs(v)/max*50);
+  const col=v>=0?"var(--lucky)":"var(--unlucky)";
+  const bar=v>=0?`<div class="b" style="left:50%;width:${w}%;background:${col}"></div><div class="v" style="left:calc(50% + ${w}% + 6px)">${sgn(v)}</div>`
+                :`<div class="b neg" style="right:50%;width:${w}%;background:${col}"></div><div class="v" style="right:calc(50% + ${w}% + 6px)">${sgn(v)}</div>`;
+  return `<div class="dbar"><div class="axis"></div>${bar}</div>`;
+}
+function fmtTot(c,v){return c==="SV%"?v.toFixed(3).replace(/^0/,""):v;}
+
+fetch("luck.json?ts="+Date.now(),{cache:"no-store"}).then(r=>r.json()).then(D=>{
+  const T=D.teams; const N=D.weeks;
+  document.getElementById("asof").textContent=`Through Week ${N} · ${N*8} categories per team`;
+  document.getElementById("upd").textContent="Updated "+D.updated;
+
+  // heroes
+  const sorted=[...T].sort((a,b)=>b.luck-a.luck);
+  const L=sorted[0],U=sorted[sorted.length-1];
+  document.getElementById("heroes").innerHTML=
+   `<div class="hero l"><div class="k">Luckiest manager</div><div class="n">${L.manager.toUpperCase()}</div><div class="d">${L.team} · ${sgn(L.luck)} category wins vs what his stats earned</div></div>
+    <div class="hero u"><div class="k">Unluckiest manager</div><div class="n">${U.manager.toUpperCase()}</div><div class="d">${U.team} · ${sgn(U.luck)} category wins vs what his stats earned</div></div>`;
+
+  // leaderboard
+  const max=Math.max(...T.map(t=>Math.abs(t.luck)))*1.15;
+  const byActual=[...T].sort((a,b)=>b.actual-a.actual).map(t=>t.team);
+  const byExp=[...T].sort((a,b)=>b.expected-a.expected).map(t=>t.team);
+  const tot=N*8;
+  document.getElementById("board").innerHTML=`<thead><tr><th class="l"></th><th class="l">Manager</th><th>Record</th><th>Actual rank</th><th>Deserved record</th><th>Deserved rank</th><th>Matchups W-L-T</th><th>Deserved matchup W</th><th class="l" style="padding-left:16px">Luck (category wins)</th></tr></thead><tbody>`+
+   sorted.map((t,i)=>{
+     const ew=t.expected, el=tot-ew;
+     return `<tr class="${t.team===ME?"me":""}"><td class="rank l">${i+1}</td><td class="who l">${t.manager}<span>${t.team}</span></td>
+      <td>${t.record}</td><td>${byActual.indexOf(t.team)+1}</td>
+      <td>${ew.toFixed(1)}-${el.toFixed(1)}</td><td>${byExp.indexOf(t.team)+1}</td>
+      <td>${t.matchRecord}</td><td>${t.expMatch.toFixed(1)}</td>
+      <td class="barcell">${dbar(t.luck,max)}</td></tr>`;}).join("")+"</tbody>";
+
+  // category explorer
+  const tabs=document.getElementById("tabs");
+  tabs.innerHTML=CATS.map(c=>`<button data-c="${c}">${CATNAME[c]}</button>`).join("");
+  function showCat(c){
+    [...tabs.children].forEach(b=>b.classList.toggle("on",b.dataset.c===c));
+    const rows=T.map(t=>({t,tot:t.totals[c],act:t.catActual[c]/N,exp:t.catExpected[c]/N,luck:t.catLuck[c]})).sort((a,b)=>b.luck-a.luck);
+    const m=Math.max(...rows.map(r=>Math.abs(r.luck)),1)*1.15;
+    const totRank=[...rows].sort((a,b)=>b.tot-a.tot).map(r=>r.t.team);
+    document.getElementById("cat").innerHTML=`<thead><tr><th class="l">Manager</th><th>${c==="SV%"?"Season SV%":"Season total"}</th><th>Total rank</th><th>Won</th><th>Win rate</th><th>Should have won</th><th class="l" style="padding-left:16px">Luck (${CATNAME[c].toLowerCase()} wins)</th></tr></thead><tbody>`+
+      rows.map(r=>`<tr class="${r.t.team===ME?"me":""}"><td class="who l">${r.t.manager}<span>${r.t.team}</span></td><td>${fmtTot(c,r.tot)}</td><td>${totRank.indexOf(r.t.team)+1}</td>
+        <td>${(r.act*N).toFixed(r.act*N%1?1:0)} of ${N}</td><td>${pct(r.act)}</td><td>${pct(r.exp)}</td><td class="barcell">${dbar(r.luck,m)}</td></tr>`).join("")+"</tbody>";
+    // callout: biggest gap between total rank and win rate
+    const lk=rows[0], ul=rows[rows.length-1];
+    document.getElementById("callout").innerHTML=
+      `<b>${lk.t.manager}</b> ranks ${totRank.indexOf(lk.t.team)+1}${["st","nd","rd"][totRank.indexOf(lk.t.team)]||"th"} in ${CATNAME[c].toLowerCase()} but won it ${pct(lk.act)} of weeks (should be ${pct(lk.exp)}). `+
+      `<b>${ul.t.manager}</b> ranks ${totRank.indexOf(ul.t.team)+1}${["st","nd","rd"][totRank.indexOf(ul.t.team)]||"th"} and won it only ${pct(ul.act)} of weeks (should be ${pct(ul.exp)}).`;
+  }
+  tabs.addEventListener("click",e=>{if(e.target.dataset.c)showCat(e.target.dataset.c);});
+  showCat("G");
+
+  // weekly grid
+  const g=document.getElementById("weeks");
+  const wmax=Math.max(...T.flatMap(t=>t.weekly.map(w=>Math.abs(w.luck))));
+  g.innerHTML=`<div></div>`+Array.from({length:N},(_,i)=>`<div class="h">Wk ${i+1}</div>`).join("");
+  sorted.forEach(t=>{
+    const rn=document.createElement("div");rn.className="rn";rn.textContent=t.manager;g.appendChild(rn);
+    t.weekly.forEach(w=>{
+      const d=document.createElement("div");d.className="c";d.style.background=divColor(w.luck,wmax);
+      d.textContent=Math.abs(w.luck)<0.05?"0":sgn(w.luck);
+      const lines=CATS.map(c=>{const x=w.cats[c];const res=x.r===1?"W":x.r===0?"L":"T";
+        return `${c}: ${fmtTot(c,x.v)} vs ${fmtTot(c,x.ov)} → <b>${res}</b> <span style="color:var(--mute)">(beat ${Math.round(x.e*9)}/9)</span>`;}).join("<br>");
+      bindTip(d,`<b>${t.manager} · Week ${w.week} vs ${w.oppMgr}</b><br>Won ${w.actual} cats, expected ${w.expected.toFixed(1)} → <b>${sgn(w.luck)}</b><br><br>${lines}`);
+      g.appendChild(d);
+    });
+  });
+  document.getElementById("ramp").innerHTML=[-1,-.66,-.33,0,.33,.66,1].map(v=>`<i style="background:${divColor(v,1)}"></i>`).join("");
+});
+</script>
+</body>
+</html>
