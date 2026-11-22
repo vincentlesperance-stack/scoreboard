@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-21T11:03:02-05:00",
-  "through": "2026-11-20",
+  "updated": "2026-11-22T12:32:00-05:00",
+  "through": "2026-11-21",
   "tradeDate": "2026-11-16",
   "sides": [
     {
@@ -12,12 +12,12 @@
           "name": "Sidney Crosby",
           "nhl": "PIT",
           "pos": "C",
-          "gp": 1,
+          "gp": 2,
           "g": 0,
-          "a": 1,
+          "a": 2,
           "ppp": 0,
-          "sog": 2,
-          "hit": 0,
+          "sog": 3,
+          "hit": 1,
           "blk": 0,
           "note": ""
         },
@@ -25,12 +25,12 @@
           "name": "Juraj Slafkovský",
           "nhl": "MTL",
           "pos": "LW,RW",
-          "gp": 3,
+          "gp": 4,
           "g": 0,
           "a": 1,
           "ppp": 1,
           "sog": 6,
-          "hit": 1,
+          "hit": 3,
           "blk": 8,
           "note": ""
         }

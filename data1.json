@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-21T11:03:02-05:00",
-  "through": "2026-11-20",
+  "updated": "2026-11-22T12:32:00-05:00",
+  "through": "2026-11-21",
   "tradeDate": "2026-11-05",
   "sides": [
     {
@@ -32,12 +32,12 @@
           "name": "Shayne Gostisbehere",
           "nhl": "CAR",
           "pos": "D",
-          "gp": 5,
+          "gp": 6,
           "g": 1,
-          "a": 3,
-          "ppp": 2,
+          "a": 5,
+          "ppp": 3,
           "sog": 11,
-          "hit": 1,
+          "hit": 2,
           "blk": 2,
           "note": ""
         }
