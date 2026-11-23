@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-22T12:32:00-05:00",
-  "through": "2026-11-21",
+  "updated": "2026-11-23T07:10:00-05:00",
+  "through": "2026-11-22",
   "tradeDate": "2026-11-16",
   "sides": [
     {
@@ -12,11 +12,11 @@
           "name": "Sidney Crosby",
           "nhl": "PIT",
           "pos": "C",
-          "gp": 2,
+          "gp": 3,
           "g": 0,
           "a": 2,
           "ppp": 0,
-          "sog": 3,
+          "sog": 7,
           "hit": 1,
           "blk": 0,
           "note": ""
@@ -58,11 +58,11 @@
           "name": "Mika Zibanejad",
           "nhl": "NYR",
           "pos": "C,RW",
-          "gp": 1,
-          "g": 0,
+          "gp": 2,
+          "g": 1,
           "a": 0,
-          "ppp": 0,
-          "sog": 2,
+          "ppp": 1,
+          "sog": 6,
           "hit": 0,
           "blk": 0,
           "note": ""
