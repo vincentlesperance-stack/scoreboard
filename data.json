@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-23T07:10:00-05:00",
-  "through": "2026-11-22",
+  "updated": "2026-11-24T10:55:00-05:00",
+  "through": "2026-11-23",
   "tradeDate": "2026-11-16",
   "sides": [
     {
@@ -25,13 +25,13 @@
           "name": "Juraj Slafkovský",
           "nhl": "MTL",
           "pos": "LW,RW",
-          "gp": 4,
+          "gp": 5,
           "g": 0,
           "a": 1,
           "ppp": 1,
-          "sog": 6,
-          "hit": 3,
-          "blk": 8,
+          "sog": 8,
+          "hit": 5,
+          "blk": 10,
           "note": ""
         }
       ]
