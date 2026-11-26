@@ -1,6 +1,6 @@
 {
-  "updated": "2026-11-25T10:45:00-05:00",
-  "through": "2026-11-24",
+  "updated": "2026-11-26T12:30:00-05:00",
+  "through": "2026-11-25",
   "tradeDate": "2026-11-16",
   "sides": [
     {
@@ -12,25 +12,25 @@
           "name": "Sidney Crosby",
           "nhl": "PIT",
           "pos": "C",
-          "gp": 3,
+          "gp": 4,
           "g": 0,
           "a": 2,
           "ppp": 0,
-          "sog": 7,
+          "sog": 9,
           "hit": 1,
-          "blk": 0,
+          "blk": 1,
           "note": ""
         },
         {
           "name": "Juraj Slafkovský",
           "nhl": "MTL",
           "pos": "LW,RW",
-          "gp": 5,
+          "gp": 6,
           "g": 0,
           "a": 1,
           "ppp": 1,
-          "sog": 8,
-          "hit": 5,
+          "sog": 10,
+          "hit": 8,
           "blk": 10,
           "note": ""
         }
@@ -45,25 +45,25 @@
           "name": "Aleksander Barkov",
           "nhl": "FLA",
           "pos": "C",
-          "gp": 0,
-          "g": 0,
+          "gp": 1,
+          "g": 1,
           "a": 0,
           "ppp": 0,
-          "sog": 0,
+          "sog": 2,
           "hit": 0,
-          "blk": 0,
-          "note": "IR-LT, last played Oct 1"
+          "blk": 1,
+          "note": ""
         },
         {
           "name": "Mika Zibanejad",
           "nhl": "NYR",
           "pos": "C,RW",
-          "gp": 2,
+          "gp": 3,
           "g": 1,
           "a": 0,
           "ppp": 1,
-          "sog": 6,
-          "hit": 0,
+          "sog": 7,
+          "hit": 1,
           "blk": 0,
           "note": ""
         }
